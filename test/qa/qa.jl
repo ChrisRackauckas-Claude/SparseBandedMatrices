@@ -1,4 +1,8 @@
-using SparseBandedMatrices, JET, LinearAlgebra
+using SparseBandedMatrices, Aqua, JET, LinearAlgebra, Test
+
+@testset "Aqua" begin
+    Aqua.test_all(SparseBandedMatrices; ambiguities = (recursive = false,))
+end
 
 @testset "JET static analysis" begin
     # Test that there are no unresolved dispatch errors in key functions

@@ -4,7 +4,6 @@ const GROUP = get(ENV, "GROUP", "All")
 
 @testset "SparseBandedMatrices" begin
     if GROUP == "All" || GROUP == "Core"
-        @safetestset "Quality Assurance" include("qa.jl")
         @safetestset "Interface Compatibility" include("interface.jl")
 
         @safetestset "Constructors" begin
@@ -86,10 +85,10 @@ const GROUP = get(ENV, "GROUP", "All")
         end
     end
 
-    if GROUP == "All" || GROUP == "nopre"
-        Pkg.activate(joinpath(@__DIR__, "nopre"))
+    if GROUP == "All" || GROUP == "QA"
+        Pkg.activate(joinpath(@__DIR__, "qa"))
         Pkg.develop(PackageSpec(path = joinpath(@__DIR__, "..")))
         Pkg.instantiate()
-        @safetestset "JET Static Analysis" include("nopre/jet.jl")
+        include(joinpath(@__DIR__, "qa", "qa.jl"))
     end
 end
